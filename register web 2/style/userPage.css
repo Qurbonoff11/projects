@@ -1,0 +1,15 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.hero_section{
+  width: 100%;
+  height: 100vh;
+  background-color: #101010;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
