@@ -66,7 +66,7 @@
 .user-2,
 .user-3,
 .user-4{
-  display: none;
+  display: flex;
 }
 
 .head_card {
