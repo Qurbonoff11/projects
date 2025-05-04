@@ -1,61 +1,84 @@
+/* DOCUMENT */
+const $HTML = document;
+
+/* MINI DATA BASE */
 const users = [
   {
-    username: "minor",
-    password: "LightDream",
+    username: `minor`,
+    password: `M1nor..LD`,
+    birthDay: "1995-yil 26-may",
+    fullName: "Rustam Ibrohimov",
+    userImg: `../assets/img/m1nor.jpg`
   },
   {
-    username: "asl_wayne",
-    password: "uzbekistan212"
+    username: `asl_wayne`,
+    password: `astrorap`,
+    birthDay: "1999-yil 26-aprel",
+    fullName: "Asilbek Bayjonov",
+    userImg: `../assets/img/asl_wayne.jpg`
   },
   {
-    username: "Uzboom",
-    password: "Uzboom.11"
+    username: `massa.38`,
+    password: `massa.038`,
+    birthDay: "1993-yil 2-iyul",
+    fullName: "Shuxrat Allayarov",
+    userImg: `../assets/img/massa.jpg`
   },
   {
-    username: "massa.38",
-    password: "uzbekistan"
+    username: `uzboom`,
+    password: `uzboom071`,
+    birthDay: "1989-yil 8-mart",
+    fullName: "Azimov SHovkat",
+    userImg: `../assets/img/uzboom.jpg`
   },
 ];
 
-const usernameInput = document.querySelector("#userName");
-const passwordInput = document.querySelector("#userPass");
-const loginBtn = document.querySelector("#login");
-const textContent = document.querySelector("#content");
+/* SET ELEMENTS */
+let usernameInput = $HTML.querySelector("#userName"),
+  passInput = $HTML.querySelector("#userPass"),
+  loginButton = $HTML.querySelector("#login"),
+  userWrong = $HTML.querySelector("#userWrong"),
+  passWrong = $HTML.querySelector("#passWrong"),
+  content = $HTML.querySelector("#content")
 
-const user1 = document.querySelector(".user-1")
-const user2 = document.querySelector(".user-2")
-const user3 = document.querySelector(".user-3")
-const user4 = document.querySelector(".user-4")
+/* REMOVED WRONG TEXT FUNCTION */
+function removeTextWrong(param) {
+  setTimeout(() => {
+    param.textContent = "";
+  }, 2000);
+}
 
-// console.log(userImg.src);
+/* TEXT WRONGS */
+function wrongTexts(para) {
+  para.textContent = "The field must not be empty."
+}
 
-loginBtn.addEventListener("click", () => {
-  const foundUser = users.find(
-    (user) =>
-      user.username === usernameInput.value &&
-      user.password === passwordInput.value
-  );
+/* FOUND USERS */
+function login(username, password) {
+  let foundUser = users.find(item => {
+    return item.username === username && item.password === password
+  })
+  localStorage.setItem("user", JSON.stringify(foundUser))
+  return foundUser
+}
 
+loginButton.addEventListener("click", () => {
+  let usernameValue = usernameInput.value;
+  let passwordValue = passInput.value;
 
-  if (foundUser) {
-    textContent.textContent = "Success";
-    textContent.style = "color: green";
-    console.log("Success");
-
-    window.location.href = "../src/userPage.html"
-
-    if (foundUser.username === "minor") {
-      user1.style.display = "flex"
-    } else if (foundUser.username === "asl_wayne"){
-      user2.style.display = "flex"
-    } else if (foundUser.username === "Uzboom"){
-      user2.style.display = "flex"
-    } else if (foundUser.username === "massa.38") {
-      user2.style.display = "flex"
-    }
+  if (!usernameValue) {
+    wrongTexts(userWrong)
+    removeTextWrong(userWrong);
+  } else if (passwordValue === "") {
+    wrongTexts(passWrong)
+    removeTextWrong(passWrong);
+  } else if (passwordValue.length < 6){
+    passWrong.textContent = "password length must be 6 or longer"
+    removeTextWrong(passWrong);
+  } else if (!login(usernameValue, passwordValue)){
+    content.textContent = "No such user exists."
+    removeTextWrong(content)
   } else {
-    textContent.textContent = "Invalid username or password";
-    textContent.style = "color: red";
-    console.log("Error");
+    window.location.href = '../src/userPage.html'
   }
 });

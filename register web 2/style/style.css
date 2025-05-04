@@ -83,7 +83,13 @@
 }
 
 .content{
-  font-weight: 600;
+  color: red;
+  font-size: .8rem;
+}
+
+.wrong{
+  color: red;
+  font-size: .8rem;
 }
 
 @media screen and (max-width: 768px){
